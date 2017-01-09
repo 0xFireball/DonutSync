@@ -1,9 +1,21 @@
-﻿namespace DonutSync.PeerClient
+﻿using DonutSync.Configuration;
+using Newtonsoft.Json;
+using System.IO;
+
+namespace DonutSync.PeerClient
 {
     public class Program
     {
+        private const string ConfigFileName = "config.json";
+
         public static void Main(string[] args)
         {
+            // Load configuration
+            var config = new PeerConnectConfiguration();
+            if (File.Exists(ConfigFileName))
+            {
+                JsonConvert.PopulateObject(File.ReadAllText(ConfigFileName), config);
+            }
         }
     }
 }
