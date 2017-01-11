@@ -1,4 +1,5 @@
-﻿using DonutSync.Configuration;
+﻿using DonutSync.Client;
+using DonutSync.Configuration;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -16,6 +17,9 @@ namespace DonutSync.PeerClient
             {
                 JsonConvert.PopulateObject(File.ReadAllText(ConfigFileName), config);
             }
+            var connectionHub = new ConnectionHub();
+            // Attempt to connect to clients
+            connectionHub.ConnectClients(config.ConnectionInformation);
         }
     }
 }
