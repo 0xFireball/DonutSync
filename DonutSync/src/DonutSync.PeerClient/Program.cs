@@ -1,6 +1,7 @@
 ﻿using DonutSync.Client;
 using DonutSync.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 
 namespace DonutSync.PeerClient
@@ -21,7 +22,11 @@ namespace DonutSync.PeerClient
             var connectionHub = new ConnectionHub();
             connectionHub.Start();
             // Attempt to connect to clients
-            connectionHub.ConnectClients(config.ConnectionInformation);
+            connectionHub.PeerConnected += (s, e) =>
+            {
+                Console.WriteLine($"Connected to {e.Peer.Endpoint}");
+            };
+            var peerConnectResult = connectionHub.ConnectPeers(config.ConnectionInformation);
         }
     }
 }
