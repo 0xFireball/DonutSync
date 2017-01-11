@@ -17,7 +17,9 @@ namespace DonutSync.PeerClient
             {
                 JsonConvert.PopulateObject(File.ReadAllText(ConfigFileName), config);
             }
+            // Create and start hub
             var connectionHub = new ConnectionHub();
+            connectionHub.Start();
             // Attempt to connect to clients
             connectionHub.ConnectClients(config.ConnectionInformation);
         }
